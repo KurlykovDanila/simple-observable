@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "observable"
+name = "simple-observable"
 version = "0.1.0"
