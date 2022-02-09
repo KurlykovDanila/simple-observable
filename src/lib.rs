@@ -1,4 +1,4 @@
-use std::ops::{Deref, DerefMut, Drop};
+use std::ops::{Deref, DerefMut};
 
 impl<T> Observable<T> {
     pub fn new(value: T) -> Observable<T> {
