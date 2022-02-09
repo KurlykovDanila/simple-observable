@@ -2,7 +2,7 @@
 
 ## This simple library is made to notify you when your data changes
 
- Adding a dependency: `simple-observable = "0.1.0"`
+ Adding a dependency: `simple-observable = "0.1.1"`
 
 ## Base usage example
 
