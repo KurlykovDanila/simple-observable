@@ -1,6 +1,6 @@
 [package]
 name = "simple-observable"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 authors = ["KurlykovDanila"]
 description = "Simple observable pointer for mutable and immutable data"
