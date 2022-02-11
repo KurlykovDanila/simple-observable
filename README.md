@@ -2,9 +2,7 @@
 
 ## This simple library is made to notify you when your data changes
 
- Adding a dependency: `simple-observable = "0.2.0"`
-
-
+ Adding a dependency: `simple-observable = "0.2.2"`
 
 ## Changing observed values
 
@@ -40,4 +38,4 @@ fn listener3(num: &i32) {
 
 `Observable` is a pointer that can be dereferenced and the data can be accessed directly. However, the data cannot be changed, but only read
 
-It is important to understand that the `Observable` owns the data and the only way to change the data is to call the `set()` method.
+It is important to understand that the `Observable` owns the data and the only way to change the data is to call the `change()` method.

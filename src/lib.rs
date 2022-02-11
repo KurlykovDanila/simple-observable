@@ -1,4 +1,4 @@
-use std::ops::{Deref, DerefMut};
+use std::ops::{Deref};
 
 impl<Data> Observable<Data> {
     pub fn new(value: Data) -> Observable<Data> {
@@ -39,5 +39,14 @@ impl<Data> Deref for Observable<Data> {
 
     fn deref(&self) -> &Self::Target {
         &self.data
+    }
+}
+
+impl<Data: Default> Default for Observable<Data> {
+    fn default() -> Self {
+        Observable{
+            data: Data::default(),
+            listeners: Vec::new(),
+        }
     }
 }
