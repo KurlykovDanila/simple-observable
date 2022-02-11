@@ -2,35 +2,9 @@
 
 ## This simple library is made to notify you when your data changes
 
- Adding a dependency: `simple-observable = "0.1.1"`
+ Adding a dependency: `simple-observable = "0.2.0"`
 
-## Base usage example
 
-```rust
-use simple_observable::Observable;
-
-fn main() {
-    // Create observable with data
-    let mut observable = Observable::new(10);
-
-    // Register listeners
-    observable.add_listener(my_listener1);
-    observable.add_listener(my_listener2);
-    
-    // Set new data value
-    observable.set(17);
-}
-
-fn my_listener1(new_value: &i32) {
-    println!("New value from listener 1: {}", new_value);
-}
-
-fn my_listener2(new_value: &i32) {
-    println!("New value from listener 2: {}", new_value);
-}
-```
-
- It is important to understand that for data that does not implement the Copy trait, the Observable becomes the owner. Also listeners can only get read refs.
 
 ## Changing observed values
 
@@ -38,35 +12,32 @@ fn my_listener2(new_value: &i32) {
 use simple_observable::Observable;
 
 fn main() {
-
-    let data = vec![1, 2, 3];
-    // Create observable with data
-    let mut observable = Observable::new(data);
-
-    // Register listeners
-    observable.add_listener(my_listener1);
-    observable.add_listener(my_listener2);
-    
-    // observable.set(vec![1, 2, 3, 4]);
-    // Irrational use, as the value will simply be overwritten, 
-    // which leads to overhead
-
-
-    // Use instead
-    (*observable).push(4);
-    
-    // Don't forget to notify us of changes
-    observable.notify();
-    
+    let a = 1;
+    println!("Initial value: {}", a);
+    let mut obs1 = Observable::new(a);
+    obs1.add_listener(listener1);
+    obs1.add_listener(listener2);
+    obs1.add_listener(listener3);
+    obs1.change(my_change_function);
 }
 
-fn my_listener1(new_value: &Vec<i32>) {
-    println!("New value from listener 1: {:?}", new_value);
+fn my_change_function(num: &mut i32) {
+    *num += 1;
 }
 
-fn my_listener2(new_value: &Vec<i32>) {
-    println!("New value from listener 2: {:?}", new_value);
+fn listener1(num: &i32) {
+    println!("(listener1) New value after change: {}", num);
+}
+
+fn listener2(num: &i32) {
+    println!("(listener2) New value after change: {}", num);
+}
+
+fn listener3(num: &i32) {
+    println!("(listener3) New value after change: {}", num);
 }
 ```
 
-`Observable` is a pointer that can be dereferenced and the data can be accessed directly. However, when they change, there will be no automatic notification, you need to call `notify()` manually
+`Observable` is a pointer that can be dereferenced and the data can be accessed directly. However, the data cannot be changed, but only read
+
+It is important to understand that the `Observable` owns the data and the only way to change the data is to call the `set()` method.

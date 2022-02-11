@@ -8,6 +8,11 @@ impl<Data> Observable<Data> {
         }
     }
 
+    ///It takes as an argument a function to change
+    /// the value of the data, and then notifies all
+    /// listeners. It doesn't matter if the new data
+    /// value is different from the previous ones, the
+    ///  listeners will still be notified.
     pub fn change(&mut self, change_fn: fn(&mut Data) -> ()) {
         change_fn(&mut self.data);
         self.notify();
@@ -17,7 +22,7 @@ impl<Data> Observable<Data> {
         self.listeners.push(listener);
     }
 
-    pub fn notify(&mut self) {
+    fn notify(&mut self) {
         for listener in self.listeners.iter() {
             listener(&self.data);
         }
